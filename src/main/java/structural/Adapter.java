@@ -3,16 +3,16 @@ package structural;
 public class Adapter {
     public static void main(String[] args) {
         RoundHole hole = new RoundHole(5);
-        RoundPeg rpeg = new RoundPeg(5);
-        System.out.println(hole.fits(rpeg));
+        RoundPeg rPeg = new RoundPeg(5);
+        System.out.printf("%s fits in %s: %s%n", rPeg, hole, hole.fits(rPeg));
 
         SquarePeg smSqPeg = new SquarePeg(5);
         SquarePeg lgSqPeg = new SquarePeg(10);
 
         SquarePegAdapter smSqPegAdapter = new SquarePegAdapter(smSqPeg);
         SquarePegAdapter lgSqPegAdapter = new SquarePegAdapter(lgSqPeg);
-        System.out.println(hole.fits(smSqPegAdapter));
-        System.out.println(hole.fits(lgSqPegAdapter));
+        System.out.printf("%s fits in %s: %s%n", smSqPegAdapter, hole, hole.fits(smSqPegAdapter));
+        System.out.printf("%s fits in %s: %s%n", lgSqPegAdapter, hole, hole.fits(lgSqPegAdapter));
     }
 
 }
@@ -27,6 +27,11 @@ class RoundPeg {
     public double getRadius() {
         return this.radius;
     }
+
+    @Override
+    public String toString() {
+        return String.format("RoundPeg(radius = %f)", this.getRadius());
+    }
 }
 
 class SquarePeg {
@@ -38,6 +43,11 @@ class SquarePeg {
 
     public double getWidth() {
         return this.width;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("SquarePeg(width = %f)", this.getWidth());
     }
 }
 
@@ -52,6 +62,11 @@ class SquarePegAdapter extends RoundPeg {
     @Override
     public double getRadius() {
         return this.peg.getWidth() * Math.sqrt(2) / 2;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("SquarePegAdapter(radius = %f)", this.getRadius());
     }
 }
 
@@ -68,6 +83,11 @@ class RoundHole {
 
     public boolean fits(RoundPeg peg) {
         return this.getRadius() >= peg.getRadius();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("RoundHole(radius = %f)", this.getRadius());
     }
 }
 
